@@ -1,8 +1,7 @@
 #version 330 core
+in vec2 TexCoord;
 out vec4 FragColor;
-
-void main()
-{
-	// Semi-transparent cyan-ish grid line (blends over the scene)
-	FragColor = vec4(0.2, 0.9, 1.0, 0.35);
+uniform sampler2D screenTexture;
+void main() {
+	FragColor = texture(screenTexture, TexCoord);
 }
