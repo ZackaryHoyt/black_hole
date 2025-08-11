@@ -2,17 +2,17 @@
 	"version": "0.2.0",
 	"configurations": [
 		{
-			"name": "g++ Debug",
+			"name": "g++ Debug Current",
 			"type": "cppdbg",
 			"request": "launch",
-			"program": "${workspaceFolder}/bin/black_hole.exe",
+			"program": "${workspaceFolder}/bin/${fileBasenameNoExtension}.exe",
 			"args": [],
 			"stopAtEntry": false,
 			"cwd": "${workspaceFolder}/src",
 			"environment": [],
 			"externalConsole": false,
 			"MIMode": "gdb",
-			"miDebuggerPath": "C:/msys64/mingw64/bin/gdb.exe",
+			"miDebuggerPath": "C:/msys64/mingw64/${fileBasenameNoExtension}/gdb.exe",
 			"setupCommands": [
 				{
 					"description": "Enable pretty-printing for gdb",

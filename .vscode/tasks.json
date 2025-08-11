@@ -2,15 +2,15 @@
 	"version": "2.0.0",
 	"tasks": [
 		{
-			"label": "build",
+			"label": "build_current",
 			"type": "cppbuild",
 			"command": "C:/msys64/mingw64/bin/g++.exe",
 			"args": [
 				"-fdiagnostics-color=always",
 				"-g", // Required for debugging tools, such as gdb.
-				"${workspaceFolder}/src/black_hole.cpp",
+				"${workspaceFolder}/src/${fileBasenameNoExtension}.cpp",
 				"-o",
-				"${workspaceFolder}/bin/black_hole.exe",
+				"${workspaceFolder}/bin/${fileBasenameNoExtension}.exe",
 				"-IC:/msys64/mingw64/include",
 				"-LC:/msys64/mingw64/lib",
 				"-lglfw3",
