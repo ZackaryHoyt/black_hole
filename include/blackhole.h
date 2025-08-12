@@ -10,5 +10,4 @@ struct BlackHole
 	double r_s;
 
 	BlackHole(glm::vec3 p, float m);
-	void draw();
 };

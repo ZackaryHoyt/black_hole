@@ -1,4 +1,6 @@
 #include "engine2d.h"
+#include "colors.h"
+#include "constants.h"
 
 #include <iostream>
 #include <cstdlib>
@@ -58,3 +60,57 @@ void Engine::run()
 
 double Engine::get_scene_width() const { return window_width * scene_scale; }
 double Engine::get_scene_height() const { return window_height * scene_scale; }
+
+void Engine::draw(const SchwarzschildUniverse &universe) const
+{
+	// Render Blackhole
+	const BlackHole& blackhole = universe.get_blackhole();
+
+	glBegin(GL_TRIANGLE_FAN);
+	glColor3fv(BLACK_HOLE_COLOR);
+	glVertex2f(blackhole.p.x, blackhole.p.y); // Center
+	for(int i = 0; i <= GLM_CIRCLE_SMOOTHNESS; i++)
+	{
+		float angle = 2.0f * PI * i / GLM_CIRCLE_SMOOTHNESS;
+		float x = blackhole.r_s * cos(angle);
+		float y = blackhole.r_s * sin(angle);
+		glVertex2f(x, y);
+	}
+	glEnd();
+	
+	// Render Ray Points
+	glPointSize(2.0f);
+	glColor3fv(RAY_COLOR);
+	glBegin(GL_POINTS);
+	for (const auto& ray : universe.get_rays())
+	{
+		glVertex2f(ray.x, ray.y);
+	}
+	glEnd();
+
+	// Render Ray Trails
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	glLineWidth(1.0f);
+
+	// draw each trail with fading alpha
+	for (const auto& ray : universe.get_rays())
+	{
+		float n_points = static_cast<float>(ray.trail.size()); // cast to a float for later alpha value calculations.
+
+		if (n_points < 2)
+		{
+			continue;
+		}
+
+		glBegin(GL_LINE_STRIP);
+		for (size_t i = 0; i < n_points; ++i)
+		{
+			glColor4f(RAY_COLOR[0], RAY_COLOR[1], RAY_COLOR[2], i / (2 * n_points));
+			glVertex2f(ray.trail[i].x, ray.trail[i].y);
+		}
+		glEnd();
+	}
+
+	glDisable(GL_BLEND);
+}

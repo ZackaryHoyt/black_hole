@@ -1,6 +1,7 @@
 #pragma once
 
 #include "graphics_core.h"
+#include "schwarzschild_universe2d.h"
 
 struct Engine
 {
@@ -22,4 +23,6 @@ struct Engine
 
 	double get_scene_width() const;
 	double get_scene_height() const;
+
+	void draw(const SchwarzschildUniverse& universe) const;
 };

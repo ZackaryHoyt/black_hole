@@ -25,10 +25,10 @@ int main()
 	while (!glfwWindowShouldClose(engine.window))
 	{
 		engine.run();
-		sagittarius_a_star.draw();
 
 		universe.update(.5);
-		Ray2D::draw(universe.get_rays());
+
+		engine.draw(universe);
 
 		glfwSwapBuffers(engine.window);
 		glfwPollEvents();

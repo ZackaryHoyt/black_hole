@@ -1,6 +1,4 @@
 #include "ray2d.h"
-#include "constants.h"
-#include "colors.h"
 
 #include <algorithm>
 #include <cmath>
@@ -25,43 +23,3 @@ Ray2D::Ray2D(glm::vec2 pos, glm::vec2 dir, const BlackHole& body)
 	// step 4) start trail :
 	trail.push_back({x, y});
 }
-
-void Ray2D::draw(const std::vector<Ray2D>& rays)
-{
-	// draw current ray positions as points
-	glPointSize(2.0f);
-	glColor3fv(RAY_COLOR);
-	glBegin(GL_POINTS);
-	for (const auto& ray : rays)
-	{
-		glVertex2f(ray.x, ray.y);
-	}
-	glEnd();
-
-	// turn on blending for the trails
-	glEnable(GL_BLEND);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	glLineWidth(1.0f);
-
-	// draw each trail with fading alpha
-	for (const auto& ray : rays)
-	{
-		float n_points = static_cast<float>(ray.trail.size()); // cast to a float for later alpha value calculations.
-
-		if (n_points < 2)
-		{
-			continue;
-		}
-
-		glBegin(GL_LINE_STRIP);
-		for (size_t i = 0; i < n_points; ++i)
-		{
-			glColor4f(RAY_COLOR[0], RAY_COLOR[1], RAY_COLOR[2], i / (2 * n_points));
-			glVertex2f(ray.trail[i].x, ray.trail[i].y);
-		}
-		glEnd();
-	}
-
-	glDisable(GL_BLEND);
-}
-

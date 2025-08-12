@@ -11,7 +11,7 @@ private:
 	const BlackHole _blackhole;
 	std::vector<Ray2D> _rays;
 
-	std::vector<std::tuple<float, Ray2D>> _ray_trails;
+	// std::vector<std::tuple<float, Ray2D>> _ray_trails;
 
 	float _elapsed_time = 0;
 
@@ -27,7 +27,7 @@ public:
 
 	void add_rays(Ray2D& ray);
 
-	const std::vector<std::tuple<float, Ray2D>>& get_ray_trails() const;
+	// const std::vector<std::tuple<float, Ray2D>>& get_ray_trails() const;
 
 	void update(const float dlambda);
 

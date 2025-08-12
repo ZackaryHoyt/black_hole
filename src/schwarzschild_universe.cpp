@@ -26,7 +26,7 @@ void SchwarzschildUniverse::add_rays(Ray2D& ray)
 	_rays.push_back(ray);
 }
 
-const std::vector<std::tuple<float, Ray2D>>& SchwarzschildUniverse::get_ray_trails() const { return _ray_trails; }
+// const std::vector<std::tuple<float, Ray2D>>& SchwarzschildUniverse::get_ray_trails() const { return _ray_trails; }
 
 void SchwarzschildUniverse::update(const float dlambda)
 {
