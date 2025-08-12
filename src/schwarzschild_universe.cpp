@@ -28,7 +28,7 @@ void SchwarzschildUniverse::add_rays(Ray2D& ray)
 
 // const std::vector<std::tuple<float, Ray2D>>& SchwarzschildUniverse::get_ray_trails() const { return _ray_trails; }
 
-void SchwarzschildUniverse::update(const float dlambda)
+void SchwarzschildUniverse::update(const double dlambda)
 {
     for (auto& ray : _rays)
     {
@@ -73,7 +73,7 @@ PolarTransform2D SchwarzschildUniverse::null_geodesic(const PolarTransform2D &k,
 	return PolarTransform2D(k.d_r, k.d_phi, d2r_dlambda2, d2phi_dlambda2);
 }
 
-void SchwarzschildUniverse::_update_ray_rk4(Ray2D &ray, const float dlambda)
+void SchwarzschildUniverse::_update_ray_rk4(Ray2D &ray, const double dlambda)
 {
     const PolarTransform2D k1 = null_geodesic(ray.transform, ray.E);
 

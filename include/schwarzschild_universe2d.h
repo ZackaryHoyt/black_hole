@@ -29,10 +29,10 @@ public:
 
 	// const std::vector<std::tuple<float, Ray2D>>& get_ray_trails() const;
 
-	void update(const float dlambda);
+	void update(const double dlambda);
 
 	PolarTransform2D null_geodesic(const PolarTransform2D& k, const double E);
 
 private:
-	void _update_ray_rk4(Ray2D& ray, const float dlambda);
+	void _update_ray_rk4(Ray2D& ray, const double dlambda);
 };

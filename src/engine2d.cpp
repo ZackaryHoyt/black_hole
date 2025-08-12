@@ -71,9 +71,9 @@ void Engine::draw(const SchwarzschildUniverse &universe) const
 	glVertex2f(blackhole.p.x, blackhole.p.y); // Center
 	for(int i = 0; i <= GLM_CIRCLE_SMOOTHNESS; i++)
 	{
-		float angle = 2.0f * PI * i / GLM_CIRCLE_SMOOTHNESS;
-		float x = blackhole.r_s * cos(angle);
-		float y = blackhole.r_s * sin(angle);
+		double angle = 2.0f * PI * i / GLM_CIRCLE_SMOOTHNESS;
+		double x = blackhole.r_s * cos(angle);
+		double y = blackhole.r_s * sin(angle);
 		glVertex2f(x, y);
 	}
 	glEnd();
@@ -96,17 +96,19 @@ void Engine::draw(const SchwarzschildUniverse &universe) const
 	// draw each trail with fading alpha
 	for (const auto& ray : universe.get_rays())
 	{
-		float n_points = static_cast<float>(ray.trail.size()); // cast to a float for later alpha value calculations.
+		int n_points = ray.trail.size();
 
 		if (n_points < 2)
 		{
 			continue;
 		}
 
+		double alpha_multiplier = 1.0 / (2 * n_points);
+
 		glBegin(GL_LINE_STRIP);
 		for (size_t i = 0; i < n_points; ++i)
 		{
-			glColor4f(RAY_COLOR[0], RAY_COLOR[1], RAY_COLOR[2], i / (2 * n_points));
+			glColor4f(RAY_COLOR[0], RAY_COLOR[1], RAY_COLOR[2], i * alpha_multiplier);
 			glVertex2f(ray.trail[i].x, ray.trail[i].y);
 		}
 		glEnd();

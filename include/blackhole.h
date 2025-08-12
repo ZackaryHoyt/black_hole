@@ -9,5 +9,5 @@ struct BlackHole
 	double r;
 	double r_s;
 
-	BlackHole(glm::vec3 p, float m);
+	BlackHole(glm::vec3 p, double m);
 };
