@@ -4,8 +4,8 @@
 
 #include <iostream>
 
-SchwarzschildUniverse::SchwarzschildUniverse(const BlackHole& blackhole, std::vector<Ray2D>* rays)
-    : _blackhole(blackhole), _rays(*rays)
+SchwarzschildUniverse::SchwarzschildUniverse(const BlackHole& blackhole, std::vector<Ray2D> rays)
+    : _blackhole(blackhole), _rays(rays)
 { }
 
 SchwarzschildUniverse::SchwarzschildUniverse(const BlackHole &blackhole)

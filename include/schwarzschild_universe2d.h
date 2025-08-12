@@ -16,7 +16,7 @@ private:
 	float _elapsed_time = 0;
 
 public:
-	SchwarzschildUniverse(const BlackHole& blackhole, std::vector<Ray2D>* rays);
+	SchwarzschildUniverse(const BlackHole& blackhole, std::vector<Ray2D> rays);
 	SchwarzschildUniverse(const BlackHole& blackhole);
 
 	~SchwarzschildUniverse();

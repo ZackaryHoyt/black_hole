@@ -19,7 +19,7 @@ int main()
 		rays.emplace_back(glm::vec2(-1e11, (i / 128.0) * 1e10), glm::vec2(C, 0.0f), sagittarius_a_star);
 	}
 
-	SchwarzschildUniverse universe(sagittarius_a_star, &rays);
+	SchwarzschildUniverse universe(sagittarius_a_star, rays);
 
 	Engine engine;
 	while (!glfwWindowShouldClose(engine.window))
