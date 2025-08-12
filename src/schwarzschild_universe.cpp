@@ -1,5 +1,7 @@
 #include "schwarzschild_universe2d.h"
 
+#include "constants.h"
+
 #include <iostream>
 
 SchwarzschildUniverse::SchwarzschildUniverse(const BlackHole& blackhole, std::vector<Ray2D>* rays)
@@ -28,7 +30,6 @@ const std::vector<std::tuple<float, Ray2D>>& SchwarzschildUniverse::get_ray_trai
 
 void SchwarzschildUniverse::update(const float dlambda)
 {
-    const size_t MAX_TRAIL = 4000;
     for (auto& ray : _rays)
     {
         if (ray.transform.r <= _blackhole.r_s)

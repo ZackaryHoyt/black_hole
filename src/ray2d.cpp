@@ -46,19 +46,17 @@ void Ray2D::draw(const std::vector<Ray2D>& rays)
 	// draw each trail with fading alpha
 	for (const auto& ray : rays)
 	{
-		size_t N = ray.trail.size();
+		float n_points = static_cast<float>(ray.trail.size()); // cast to a float for later alpha value calculations.
 
-		if (N < 2)
+		if (n_points < 2)
 		{
 			continue;
 		}
 
 		glBegin(GL_LINE_STRIP);
-		for (size_t i = 0; i < N; ++i)
+		for (size_t i = 0; i < n_points; ++i)
 		{
-			// older points (i=0) get alpha≈0, newer get alpha≈1
-			float alpha = float(i) / float(N - 1);
-			glColor4f(RAY_COLOR[0], RAY_COLOR[1], RAY_COLOR[2], std::max(alpha, 0.05f));
+			glColor4f(RAY_COLOR[0], RAY_COLOR[1], RAY_COLOR[2], i / (2 * n_points));
 			glVertex2f(ray.trail[i].x, ray.trail[i].y);
 		}
 		glEnd();
