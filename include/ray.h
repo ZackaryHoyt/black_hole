@@ -18,7 +18,7 @@ struct Ray
 
 	Ray(glm::vec2 pos, glm::vec2 dir, const BlackHole& body);
 
-	void draw(const std::vector<Ray>& rays);
+	static void draw(const std::vector<Ray>& rays);
 
 	void rk4Step(double dlambda, double rs);
 
