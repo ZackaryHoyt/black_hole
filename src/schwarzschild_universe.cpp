@@ -1,4 +1,4 @@
-#include "schwarzschild_universe.h"
+#include "schwarzschild_universe2d.h"
 
 #include <iostream>
 

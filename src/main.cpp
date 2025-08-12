@@ -2,10 +2,10 @@
 #include <iostream>
 
 #include "constants.h"
-#include "engine.h"
 #include "blackhole.h"
+#include "engine2d.h"
 #include "ray2d.h"
-#include "schwarzschild_universe.h"
+#include "schwarzschild_universe2d.h"
 
 
 int main()
