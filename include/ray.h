@@ -1,19 +1,18 @@
 #pragma once
 #include <vector>
+#include <tuple>
 #include <glm/glm.hpp>
 #include "blackhole.h"
+#include "polar_transform2d.h"
 
 struct Ray;
-void addState(const double a[4], const double b[4], double factor, double out[4]);
-void geodesicRHS(const Ray& ray, double rhs[4], double rs);
+PolarTransform2D geodesic(const PolarTransform2D& k, const double E, const double r_s);
 
 struct Ray
 {
 	// -- cartesian coords -- //
 	double x;   double y;
-	// -- polar coords -- //
-	double r;   double phi;
-	double dr;  double dphi;
+	PolarTransform2D transform;
 	std::vector<glm::vec2> trail; // trail of points
 	double E, L; // conserved quantities
 
@@ -21,7 +20,7 @@ struct Ray
 
 	void draw(const std::vector<Ray>& rays);
 
-	void rk4Step(Ray& ray, double dλ, double rs);
+	void rk4Step(double dlambda, double rs);
 
-	void step(double dλ, double rs);
+	void step(double dlambda, double rs);
 };
