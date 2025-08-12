@@ -14,9 +14,13 @@ int main()
 
 	std::vector<Ray2D> rays;
 
-	for (int i = -512; i <= 512; ++i)
+	const int n_rays = 1 << 11;
+
+	const double ray_interval = 8.75e9 / (n_rays >> 3);
+
+	for (int i = -n_rays >> 1; i <= n_rays >> 1; ++i)
 	{
-		rays.emplace_back(glm::vec2(-1e11, (i / 128.0) * 1e10), glm::vec2(C, 0.0f), sagittarius_a_star);
+		rays.emplace_back(glm::vec2(-1e11, i * ray_interval), glm::vec2(C, 0.0f), sagittarius_a_star);
 	}
 
 	SchwarzschildUniverse universe(sagittarius_a_star, rays);
@@ -26,7 +30,7 @@ int main()
 	{
 		engine.run();
 
-		universe.update(.5);
+		universe.update(1);
 
 		engine.draw(universe);
 

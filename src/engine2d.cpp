@@ -21,6 +21,9 @@ Engine::Engine(const int window_width, const int window_height, const double sce
 		std::exit(EXIT_FAILURE);
 	}
 	glfwMakeContextCurrent(window);
+	
+	glfwSwapInterval(1);
+	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 
 	// Initialize GLEW after a valid context is current
 	glewExperimental = GL_TRUE;
@@ -48,7 +51,8 @@ void Engine::run()
 {
 	const double scene_rw = get_scene_width() / 2, scene_rh = get_scene_height() / 2;
 
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glClear(GL_COLOR_BUFFER_BIT);
+	// glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 	double x0 = camera_cx - scene_rw, x1 = camera_cx + scene_rw;
@@ -68,13 +72,13 @@ void Engine::draw(const SchwarzschildUniverse &universe) const
 
 	glBegin(GL_TRIANGLE_FAN);
 	glColor3f(BLACK_HOLE_COLOR.r, BLACK_HOLE_COLOR.g, BLACK_HOLE_COLOR.b);
-	glVertex2f(blackhole.p.x, blackhole.p.y); // Center
+	glVertex2d(blackhole.p.x, blackhole.p.y); // Center
 	for(int i = 0; i <= GLM_CIRCLE_SMOOTHNESS; i++)
 	{
 		double angle = 2.0f * PI * i / GLM_CIRCLE_SMOOTHNESS;
-		double x = blackhole.r_s * cos(angle);
-		double y = blackhole.r_s * sin(angle);
-		glVertex2f(x, y);
+		double x = blackhole.p.x + blackhole.r_s * cos(angle);
+		double y = blackhole.p.y + blackhole.r_s * sin(angle);
+		glVertex2d(x, y);
 	}
 	glEnd();
 	
@@ -84,7 +88,10 @@ void Engine::draw(const SchwarzschildUniverse &universe) const
 	glBegin(GL_POINTS);
 	for (const auto& ray : universe.get_rays())
 	{
-		glVertex2f(ray.x, ray.y);
+		if (ray.transform.r > blackhole.r)
+		{
+			glVertex2d(ray.x, ray.y);
+		}
 	}
 	glEnd();
 
@@ -103,13 +110,13 @@ void Engine::draw(const SchwarzschildUniverse &universe) const
 			continue;
 		}
 
-		double alpha_multiplier = 1.0 / (2 * n_points);
+		double alpha_multiplier = 1.0 / (8 * n_points);
 
 		glBegin(GL_LINE_STRIP);
 		for (size_t i = 0; i < n_points; ++i)
 		{
 			glColor4f(RAY_COLOR.r, RAY_COLOR.g, RAY_COLOR.b, i * alpha_multiplier);
-			glVertex2f(ray.trail[i].x, ray.trail[i].y);
+			glVertex2d(ray.trail[i].x, ray.trail[i].y);
 		}
 		glEnd();
 	}

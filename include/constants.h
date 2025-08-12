@@ -11,4 +11,4 @@ inline constexpr double PI = 3.14159265358979323846;
 inline constexpr double GLM_CIRCLE_SMOOTHNESS = 64;
 
 // Container Size Constants
-inline constexpr size_t MAX_TRAIL = 1000;
+inline constexpr size_t MAX_TRAIL = 512;
