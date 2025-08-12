@@ -21,17 +21,17 @@ public:
 
 	~SchwarzschildUniverse();
 
-	const BlackHole& get_blackhole() const;
+	[[nodiscard]] const BlackHole& get_blackhole() const;
 	
-	const std::vector<Ray2D>& get_rays() const;
+	[[nodiscard]] const std::vector<Ray2D>& get_rays() const;
 
-	void add_rays(Ray2D& ray);
+	void add_ray(Ray2D& ray);
 
 	// const std::vector<std::tuple<float, Ray2D>>& get_ray_trails() const;
 
 	void update(const double dlambda);
 
-	PolarTransform2D null_geodesic(const PolarTransform2D& k, const double E);
+	[[nodiscard]] PolarTransform2D null_geodesic(const PolarTransform2D& k, const double E);
 
 private:
 	void _update_ray_rk4(Ray2D& ray, const double dlambda);

@@ -21,7 +21,7 @@ const BlackHole &SchwarzschildUniverse::get_blackhole() const { return _blackhol
 
 const std::vector<Ray2D>& SchwarzschildUniverse::get_rays() const { return _rays; }
 
-void SchwarzschildUniverse::add_rays(Ray2D& ray)
+void SchwarzschildUniverse::add_ray(Ray2D& ray)
 {
 	_rays.push_back(ray);
 }

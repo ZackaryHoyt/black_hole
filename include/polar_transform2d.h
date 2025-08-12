@@ -20,7 +20,7 @@ struct PolarTransform2D
     }
 
     template <class T, std::enable_if_t<std::is_arithmetic_v<T>, int> = 0>
-    [[nodiscard]] inline PolarTransform2D operator/(T s) const
+    [[nodiscard]] inline PolarTransform2D operator/(T s) const noexcept
     {
         return PolarTransform2D(r / s, phi / s, d_r / s, d_phi / s);
     }

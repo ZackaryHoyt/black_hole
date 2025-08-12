@@ -1,7 +1,6 @@
 #pragma once
 
 #include <vector>
-#include <tuple>
 #include <glm/glm.hpp>
 
 #include "blackhole.h"
@@ -16,6 +15,4 @@ struct Ray2D
 	double E, L; // conserved quantities
 
 	Ray2D(glm::vec2 pos, glm::vec2 dir, const BlackHole& body);
-
-	static void draw(const std::vector<Ray2D>& rays);
 };

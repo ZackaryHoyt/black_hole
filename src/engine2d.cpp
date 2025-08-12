@@ -67,7 +67,7 @@ void Engine::draw(const SchwarzschildUniverse &universe) const
 	const BlackHole& blackhole = universe.get_blackhole();
 
 	glBegin(GL_TRIANGLE_FAN);
-	glColor3fv(BLACK_HOLE_COLOR);
+	glColor3f(BLACK_HOLE_COLOR.r, BLACK_HOLE_COLOR.g, BLACK_HOLE_COLOR.b);
 	glVertex2f(blackhole.p.x, blackhole.p.y); // Center
 	for(int i = 0; i <= GLM_CIRCLE_SMOOTHNESS; i++)
 	{
@@ -80,7 +80,7 @@ void Engine::draw(const SchwarzschildUniverse &universe) const
 	
 	// Render Ray Points
 	glPointSize(2.0f);
-	glColor3fv(RAY_COLOR);
+	glColor3f(RAY_COLOR.r, RAY_COLOR.g, RAY_COLOR.b);
 	glBegin(GL_POINTS);
 	for (const auto& ray : universe.get_rays())
 	{
@@ -108,7 +108,7 @@ void Engine::draw(const SchwarzschildUniverse &universe) const
 		glBegin(GL_LINE_STRIP);
 		for (size_t i = 0; i < n_points; ++i)
 		{
-			glColor4f(RAY_COLOR[0], RAY_COLOR[1], RAY_COLOR[2], i * alpha_multiplier);
+			glColor4f(RAY_COLOR.r, RAY_COLOR.g, RAY_COLOR.b, i * alpha_multiplier);
 			glVertex2f(ray.trail[i].x, ray.trail[i].y);
 		}
 		glEnd();
