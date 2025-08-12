@@ -108,6 +108,7 @@
 		"stdfloat": "cpp",
 		"syncstream": "cpp",
 		"typeindex": "cpp",
-		"valarray": "cpp"
+		"valarray": "cpp",
+		"queue": "cpp"
 	}
 }

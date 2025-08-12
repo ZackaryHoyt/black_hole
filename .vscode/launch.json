@@ -2,13 +2,13 @@
 	"version": "0.2.0",
 	"configurations": [
 		{
-			"name": "g++ Debug Current",
+			"name": "g++ Debug Ray2D Demo",
 			"type": "cppdbg",
 			"request": "launch",
-			"program": "${workspaceFolder}/bin/${fileBasenameNoExtension}.exe",
+			"program": "${workspaceFolder}/bin/ray2d_demo.exe",
 			"args": [],
 			"stopAtEntry": false,
-			"cwd": "${workspaceFolder}/src",
+			"cwd": "${workspaceFolder}",
 			"environment": [],
 			"externalConsole": false,
 			"MIMode": "gdb",
@@ -20,7 +20,7 @@
 					"ignoreFailures": false
 				}
 			],
-			"preLaunchTask": "build_current"
+			"preLaunchTask": "build_ray2d_demo"
 		},
 		{
 			"name": "CUDA Debug",

@@ -2,15 +2,16 @@
 	"version": "2.0.0",
 	"tasks": [
 		{
-			"label": "build_current",
+			"label": "build_ray2d_demo",
 			"type": "cppbuild",
 			"command": "C:/msys64/mingw64/bin/g++.exe",
 			"args": [
 				"-fdiagnostics-color=always",
 				"-g", // Required for debugging tools, such as gdb.
-				"${workspaceFolder}/src/${fileBasenameNoExtension}.cpp",
+				"${workspaceFolder}/src/*.cpp",
 				"-o",
-				"${workspaceFolder}/bin/${fileBasenameNoExtension}.exe",
+				"${workspaceFolder}/bin/ray2d_demo.exe",
+				"-Iinclude",
 				"-IC:/msys64/mingw64/include",
 				"-LC:/msys64/mingw64/lib",
 				"-lglfw3",
