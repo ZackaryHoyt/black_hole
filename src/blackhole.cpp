@@ -1,8 +1,6 @@
 #include "blackhole.h"
 #include "constants.h"
 
-#include <GL/gl.h>
-
 BlackHole::BlackHole(glm::vec3 p, float m)
 	: p(p), m(m)
 {

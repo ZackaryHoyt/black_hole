@@ -1,7 +1,6 @@
 #pragma once
 
-// Forward declaration to avoid pulling in GL headers from headers
-struct GLFWwindow;
+#include "graphics_core.h"
 
 struct Engine
 {

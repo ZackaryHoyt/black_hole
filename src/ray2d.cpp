@@ -1,8 +1,6 @@
 #include "ray2d.h"
 #include "constants.h"
 
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
 #include <algorithm>
 #include <cmath>
 
@@ -50,7 +48,9 @@ void Ray2D::draw(const std::vector<Ray2D>& rays)
 		size_t N = ray.trail.size();
 
 		if (N < 2)
+		{
 			continue;
+		}
 
 		glBegin(GL_LINE_STRIP);
 		for (size_t i = 0; i < N; ++i)

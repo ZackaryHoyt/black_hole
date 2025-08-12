@@ -1,7 +1,9 @@
 #pragma once
+
 #include <vector>
 #include <tuple>
-#include <glm/glm.hpp>
+
+#include "graphics_core.h"
 #include "blackhole.h"
 #include "polar_transform2d.h"
 

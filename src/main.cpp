@@ -1,5 +1,3 @@
-#include <GLFW/glfw3.h>
-#include <glm/glm.hpp>
 #include <vector>
 #include <iostream>
 
@@ -16,9 +14,9 @@ int main()
 
 	std::vector<Ray2D> rays;
 
-	for (int i = -16; i <= 16; ++i)
+	for (int i = -512; i <= 512; ++i)
 	{
-		rays.emplace_back(glm::vec2(-1e11, (i / 4.0) * 1e10), glm::vec2(C, 0.0f), sagittarius_a_star);
+		rays.emplace_back(glm::vec2(-1e11, (i / 128.0) * 1e10), glm::vec2(C, 0.0f), sagittarius_a_star);
 	}
 
 	SchwarzschildUniverse universe(sagittarius_a_star, &rays);
@@ -29,8 +27,8 @@ int main()
 		engine.run();
 		sagittarius_a_star.draw();
 
-		universe.update(1);
-		Ray2D::draw(*universe.get_rays());
+		universe.update(.5);
+		Ray2D::draw(universe.get_rays());
 
 		glfwSwapBuffers(engine.window);
 		glfwPollEvents();

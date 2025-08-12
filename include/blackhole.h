@@ -1,6 +1,6 @@
 #pragma once
 
-#include <glm/glm.hpp>
+#include "graphics_core.h"
 
 struct BlackHole
 {
