@@ -1,5 +1,6 @@
 #include "blackhole.h"
 #include "constants.h"
+#include "colors.h"
 
 BlackHole::BlackHole(glm::vec3 p, float m)
 	: p(p), m(m)
@@ -10,7 +11,7 @@ BlackHole::BlackHole(glm::vec3 p, float m)
 void BlackHole::draw()
 {
 	glBegin(GL_TRIANGLE_FAN);
-	glColor3f(1.0f, 0.0f, 0.0f); // Red color for the black hole.
+	glColor3fv(BLACK_HOLE_COLOR);
 	glVertex2f(0.0f, 0.0f); // Center
 	for(int i = 0; i <= GLM_CIRCLE_SMOOTHNESS; i++)
 	{

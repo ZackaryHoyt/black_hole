@@ -1,5 +1,6 @@
 #include "ray2d.h"
 #include "constants.h"
+#include "colors.h"
 
 #include <algorithm>
 #include <cmath>
@@ -29,7 +30,7 @@ void Ray2D::draw(const std::vector<Ray2D>& rays)
 {
 	// draw current ray positions as points
 	glPointSize(2.0f);
-	glColor3f(1.0f, 0.0f, 0.0f);
+	glColor3fv(RAY_COLOR);
 	glBegin(GL_POINTS);
 	for (const auto& ray : rays)
 	{
@@ -57,7 +58,7 @@ void Ray2D::draw(const std::vector<Ray2D>& rays)
 		{
 			// older points (i=0) get alpha≈0, newer get alpha≈1
 			float alpha = float(i) / float(N - 1);
-			glColor4f(1.0f, 1.0f, 1.0f, std::max(alpha, 0.05f));
+			glColor4f(RAY_COLOR[0], RAY_COLOR[1], RAY_COLOR[2], std::max(alpha, 0.05f));
 			glVertex2f(ray.trail[i].x, ray.trail[i].y);
 		}
 		glEnd();
