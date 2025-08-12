@@ -9,5 +9,3 @@
 // Make sure GLEW is included before GLFW and that GLFW doesn't include GL headers itself
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
-
-#include <glm/glm.hpp>
