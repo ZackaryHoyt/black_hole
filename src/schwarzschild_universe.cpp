@@ -5,26 +5,20 @@
 #include <iostream>
 
 SchwarzschildUniverse::SchwarzschildUniverse(const BlackHole& blackhole, const std::vector<Ray2D>& rays)
-    : _blackhole(blackhole), _rays(rays)
-{ }
+    : _blackhole(blackhole), _rays(rays) { }
 
 SchwarzschildUniverse::SchwarzschildUniverse(const BlackHole &blackhole)
-    : _blackhole(blackhole)
-{ }
+    : _blackhole(blackhole) { }
 
-SchwarzschildUniverse::~SchwarzschildUniverse()
-{
-
-}
+SchwarzschildUniverse::~SchwarzschildUniverse() { }
 
 const BlackHole &SchwarzschildUniverse::get_blackhole() const { return _blackhole; }
 
 const std::vector<Ray2D>& SchwarzschildUniverse::get_rays() const { return _rays; }
 
-void SchwarzschildUniverse::add_ray(Ray2D& ray)
-{
-	_rays.push_back(ray);
-}
+void SchwarzschildUniverse::clear_rays() { _rays.clear(); }
+
+void SchwarzschildUniverse::add_ray(const Ray2D& ray) { _rays.push_back(ray); }
 
 // const std::vector<std::tuple<float, Ray2D>>& SchwarzschildUniverse::get_ray_trails() const { return _ray_trails; }
 

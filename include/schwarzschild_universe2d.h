@@ -25,7 +25,9 @@ public:
 	
 	[[nodiscard]] const std::vector<Ray2D>& get_rays() const;
 
-	void add_ray(Ray2D& ray);
+	void clear_rays();
+
+	void add_ray(const Ray2D& ray);
 
 	// const std::vector<std::tuple<float, Ray2D>>& get_ray_trails() const;
 
