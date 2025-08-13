@@ -83,32 +83,36 @@ PolarTransform2D SchwarzschildUniverse::null_geodesic(const PolarTransform2D &k,
 
 void SchwarzschildUniverse::_update_ray_rk4(Ray2D &ray, const double dlambda)
 {
-    const double r0 = ray.transform.r;
+    // This rk4 checks each step to verify the ray has not gone beyond r_s.
+    // If a ray has gone beyond r_s, the update will clip the number of steps to that ray.
+    // While motion beyond r_s is undefined, at least the first step beyond r_s needs to
+    // be considered to have the ray progress anywhere. Future updates should then skip
+    // updating that ray if the update moves it beyond r_s.
 
     const PolarTransform2D k1 = null_geodesic(ray.transform, ray.E);
-    if (k1.r <= _blackhole.r_s)
+    const PolarTransform2D y2 = ray.transform + k1 * dlambda * 0.5;
+    if (y2.r <= _blackhole.r_s)
     {
         ray.transform += dlambda * k1;
         return;
     }
 
-    const PolarTransform2D y2 = ray.transform + k1 * (dlambda * 0.5);
     const PolarTransform2D k2 = null_geodesic(y2, ray.E);
-    if (k2.r <= _blackhole.r_s)
+    const PolarTransform2D y3 = ray.transform + k2 * dlambda * 0.5;
+    if (y3.r <= _blackhole.r_s)
     {
-        ray.transform += (dlambda / 3.0) * (k1 + 2 * k2);
+        ray.transform += (dlambda / 3) * (k1 + 2 * k2);
         return;
     }
 
-    const PolarTransform2D y3 = ray.transform + k2 * (dlambda * 0.5);
     const PolarTransform2D k3 = null_geodesic(y3, ray.E);
-    if (k3.r <= _blackhole.r_s)
+    const PolarTransform2D y4 = ray.transform + k3 * dlambda;
+    if (y4.r <= _blackhole.r_s)
     {
-        ray.transform += (dlambda / 5.0) * (k1 + 2 * k2 + 2 * k3);
+        ray.transform += (dlambda / 5) * (k1 + 2 * k2 + 2 * k3);
         return;
     }
 
-    const PolarTransform2D y4 = ray.transform + k3 * dlambda;
     const PolarTransform2D k4 = null_geodesic(y4, ray.E);
 
 	ray.transform += (dlambda / 6.0) * (k1 + 2 * k2 + 2 * k3 + k4);
