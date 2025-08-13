@@ -86,7 +86,7 @@ void SchwarzschildUniverse::_update_ray_rk4(Ray2D &ray, const double dlambda)
     const double r0 = ray.transform.r;
 
     const PolarTransform2D k1 = null_geodesic(ray.transform, ray.E);
-    if (k1.r < _blackhole.r_s)
+    if (k1.r <= _blackhole.r_s)
     {
         ray.transform += dlambda * k1;
         return;
@@ -94,7 +94,7 @@ void SchwarzschildUniverse::_update_ray_rk4(Ray2D &ray, const double dlambda)
 
     const PolarTransform2D y2 = ray.transform + k1 * (dlambda * 0.5);
     const PolarTransform2D k2 = null_geodesic(y2, ray.E);
-    if (k2.r < _blackhole.r_s)
+    if (k2.r <= _blackhole.r_s)
     {
         ray.transform += (dlambda / 3.0) * (k1 + 2 * k2);
         return;
@@ -102,7 +102,7 @@ void SchwarzschildUniverse::_update_ray_rk4(Ray2D &ray, const double dlambda)
 
     const PolarTransform2D y3 = ray.transform + k2 * (dlambda * 0.5);
     const PolarTransform2D k3 = null_geodesic(y3, ray.E);
-    if (k3.r < _blackhole.r_s)
+    if (k3.r <= _blackhole.r_s)
     {
         ray.transform += (dlambda / 5.0) * (k1 + 2 * k2 + 2 * k3);
         return;
