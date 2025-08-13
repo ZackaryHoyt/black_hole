@@ -56,19 +56,12 @@ void SchwarzschildUniverse::update(const double dlambda)
     }
 }
 
-std::optional<PolarTransform2D> SchwarzschildUniverse::null_geodesic(const PolarTransform2D &k, const double E)
+PolarTransform2D SchwarzschildUniverse::null_geodesic(const PolarTransform2D &k, const double E)
 {
 	double dr   = k.d_r;
 	double dphi = k.d_phi;
 
 	double f = 1.0 - _blackhole.r_s / k.r;
-    
-    if (f <= 0)
-    {
-        // TODO: Handle r <= r_s.
-        // As the ray reaches the event horizon (r = r_s), dt_dλ goes to infinity which, understandably, causes some issues.
-        return std::optional<PolarTransform2D>();
-    }
 
 	// dr/dλ = dr
 	
@@ -90,36 +83,33 @@ std::optional<PolarTransform2D> SchwarzschildUniverse::null_geodesic(const Polar
 
 void SchwarzschildUniverse::_update_ray_rk4(Ray2D &ray, const double dlambda)
 {
-    const std::optional<PolarTransform2D> k1 = null_geodesic(ray.transform, ray.E);
-    if (!k1.has_value())
+    const double r0 = ray.transform.r;
+
+    const PolarTransform2D k1 = null_geodesic(ray.transform, ray.E);
+    if (k1.r < _blackhole.r_s)
     {
-        ray.transform = PolarTransform2D();
+        ray.transform += dlambda * k1;
         return;
     }
 
-    const PolarTransform2D y2 = ray.transform + k1.value() * (dlambda * 0.5);
-    const std::optional<PolarTransform2D> k2 = null_geodesic(y2, ray.E);
-    if (!k2.has_value())
+    const PolarTransform2D y2 = ray.transform + k1 * (dlambda * 0.5);
+    const PolarTransform2D k2 = null_geodesic(y2, ray.E);
+    if (k2.r < _blackhole.r_s)
     {
-        ray.transform = PolarTransform2D();
+        ray.transform += (dlambda / 3.0) * (k1 + 2 * k2);
         return;
     }
 
-    const PolarTransform2D y3 = ray.transform + k2.value() * (dlambda * 0.5);
-    const std::optional<PolarTransform2D> k3 = null_geodesic(y3, ray.E);
-    if (!k3.has_value())
+    const PolarTransform2D y3 = ray.transform + k2 * (dlambda * 0.5);
+    const PolarTransform2D k3 = null_geodesic(y3, ray.E);
+    if (k3.r < _blackhole.r_s)
     {
-        ray.transform = PolarTransform2D();
+        ray.transform += (dlambda / 5.0) * (k1 + 2 * k2 + 2 * k3);
         return;
     }
 
-    const PolarTransform2D y4 = ray.transform + k3.value() * dlambda;
-    const std::optional<PolarTransform2D> k4 = null_geodesic(y4, ray.E);
-    if (!k4.has_value())
-    {
-        ray.transform = PolarTransform2D();
-        return;
-    }
+    const PolarTransform2D y4 = ray.transform + k3 * dlambda;
+    const PolarTransform2D k4 = null_geodesic(y4, ray.E);
 
-	ray.transform += (dlambda / 6.0) * (k1.value() + 2 * k2.value() + 2 * k3.value() + k4.value());
+	ray.transform += (dlambda / 6.0) * (k1 + 2 * k2 + 2 * k3 + k4);
 }

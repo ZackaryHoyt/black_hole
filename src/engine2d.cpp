@@ -88,7 +88,7 @@ void Engine::draw(const SchwarzschildUniverse &universe) const
 	glBegin(GL_POINTS);
 	for (const auto& ray : universe.get_rays())
 	{
-		if (ray.transform.r > blackhole.r)
+		if (ray.transform.r > blackhole.r_s)
 		{
 			glVertex2d(ray.x, ray.y);
 		}

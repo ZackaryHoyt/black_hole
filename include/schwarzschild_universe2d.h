@@ -3,7 +3,6 @@
 #include "ray2d.h"
 
 #include <vector>
-#include <optional>
 #include <tuple>
 
 class SchwarzschildUniverse
@@ -32,7 +31,7 @@ public:
 
 	void update(const double dlambda);
 
-	[[nodiscard]] std::optional<PolarTransform2D> null_geodesic(const PolarTransform2D& k, const double E);
+	[[nodiscard]] PolarTransform2D null_geodesic(const PolarTransform2D& k, const double E);
 
 private:
 	void _update_ray_rk4(Ray2D& ray, const double dlambda);
